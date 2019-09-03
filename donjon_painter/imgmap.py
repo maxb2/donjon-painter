@@ -22,17 +22,22 @@ def generateMap(args, mapBlocks, resFile):
                     )
 
         # Get width & height of image
-        width = len(resFile[0]) * args.pixels
-        height = len(resFile) * args.pixels
+        # width = len(resFile[0]) * args.pixels
+        # height = len(resFile) * args.pixels
+        # Get width & height of image using tiles with an alpha border
+        width = (len(resFile[0])+2) * args.pixels//3
+        height = (len(resFile)+2) * args.pixels//3
 
         # Paste images onto blank canvas
         tmpImage = Image.new('RGBA', (width, height))
         if mapBlocks is not False:
             for row, tileMap in enumerate(resFile):
-                yPos = row * args.pixels
+                # yPos = row * args.pixels
+                yPos = row * (args.pixels-3) // 3
                 # Loop through tile resources in single tile
                 for col, tileArray in enumerate(tileMap):
-                    xPos = col * args.pixels
+                    # xPos = col * args.pixels
+                    xPos = col * (args.pixels-3) // 3
                     # Merge resources if there's more than one
                     if len(tileArray) > 1:
                         tileImage = Image.new(
@@ -48,7 +53,11 @@ def generateMap(args, mapBlocks, resFile):
                                 tileImage, bg)
                             tileImage = Image.alpha_composite(
                                 tileImage, fg)
-                        tmpImage.paste(im=tileImage, box=(xPos, yPos))
+                        # tmpImage.paste(im=tileImage, box=(xPos, yPos))
+                            tmpImage.alpha_composite(
+                                im=tileImage,
+                                dest=(xPos, yPos)
+                            )
                     else:
                         # Floor tile randomising
                         tileCat = tileArray[0][0]
@@ -61,11 +70,19 @@ def generateMap(args, mapBlocks, resFile):
                                 floorImg.transpose(Image.ROTATE_180),
                                 floorImg.transpose(Image.ROTATE_270)
                             ])
-                            tmpImage.paste(im=floorImg, box=(xPos, yPos))
+                            # tmpImage.paste(im=floorImg, box=(xPos, yPos))
+                            tmpImage.alpha_composite(
+                                im=floorImg,
+                                dest=(xPos, yPos)
+                            )
                         else:
-                            tmpImage.paste(
+                            # tmpImage.paste(
+                            #     im=mapBlocks[tileCat][tileNam],
+                            #     box=(xPos, yPos)
+                            # )
+                            tmpImage.alpha_composite(
                                 im=mapBlocks[tileCat][tileNam],
-                                box=(xPos, yPos)
+                                dest=(xPos, yPos)
                             )
         return tmpImage
     else:
