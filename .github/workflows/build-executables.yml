@@ -31,6 +31,7 @@ jobs:
       - name: Build Executable
         run: |
           mkdir ${{ matrix.os }}
+          rm -rf build
           cd donjon_painter
           python -O -m PyInstaller --clean --onefile --name donjon-painter --distpath ../${{ matrix.os }} painter.py
 
