@@ -15,7 +15,7 @@ jobs:
         include:
           - os: ubuntu
             file: ubuntu/donjon-painter
-            args: --better
+            args: -9
             strip: true
           - os: windows
             file: windows/donjon-painter.exe
@@ -23,7 +23,7 @@ jobs:
             strip: false
           - os: macos
             file: macos/donjon-painter
-            args: --better
+            args: -9
             strip: true
     steps:
       - name: Checkout code
