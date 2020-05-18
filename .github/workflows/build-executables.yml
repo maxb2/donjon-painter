@@ -27,12 +27,11 @@ jobs:
           python -m pip install --upgrade pip
           pip --version
           pip install pyinstaller
-          # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           pip install -r requirements.txt
 
       - name: Build Executable
         run: |
-          mkdir -p ${{ matrix.os }}
+          mkdir ${{ matrix.os }}
           cd donjon_painter
           pyinstaller --onefile --name donjon-painter --distpath ../${{ matrix.os }} painter.py
 
