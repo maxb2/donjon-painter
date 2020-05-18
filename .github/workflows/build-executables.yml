@@ -25,7 +25,6 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip --version
           pip install pyinstaller
           pip install -r requirements.txt
 
@@ -33,7 +32,7 @@ jobs:
         run: |
           mkdir ${{ matrix.os }}
           cd donjon_painter
-          pyinstaller --onefile --name donjon-painter --distpath ../${{ matrix.os }} painter.py
+          python -O -m PyInstaller --onefile --name donjon-painter --distpath ../${{ matrix.os }} painter.py
 
       - name: Package Executable
         run: |
