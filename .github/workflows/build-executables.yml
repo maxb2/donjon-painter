@@ -15,15 +15,15 @@ jobs:
         include:
           - os: ubuntu
             file: ubuntu/donjon-painter
-            args: -9
+            args: --lzma
             strip: true
           - os: windows
             file: windows/donjon-painter.exe
-            args: -9
+            args: --lzma
             strip: false
           - os: macos
             file: macos/donjon-painter
-            args: -9
+            args: --lzma
             strip: true
     steps:
       - name: Checkout code
