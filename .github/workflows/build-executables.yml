@@ -24,14 +24,16 @@ jobs:
 
       - name: Install dependencies
         run: |
+          python -m venv venv
+          source venv/bin/activate
           python -m pip install --upgrade pip
           pip install pyinstaller
           pip install -r requirements.txt
 
       - name: Build Executable
         run: |
+          source venv/bin/activate
           mkdir ${{ matrix.os }}
-          rm -rf build
           cd donjon_painter
           python -O -m PyInstaller --clean --onefile --name donjon-painter --distpath ../${{ matrix.os }} painter.py
 
