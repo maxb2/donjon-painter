@@ -32,7 +32,7 @@ jobs:
         run: |
           mkdir ${{ matrix.os }}
           cd donjon_painter
-          python -O -m PyInstaller --onefile --name donjon-painter --distpath ../${{ matrix.os }} painter.py
+          python -O -m PyInstaller --clean --onefile --name donjon-painter --distpath ../${{ matrix.os }} painter.py
 
       - name: Package Executable
         run: |
