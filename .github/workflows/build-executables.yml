@@ -12,7 +12,19 @@ jobs:
     runs-on: ${{ matrix.os }}-latest
     strategy:
       matrix:
-        os: [ubuntu, macos, windows]
+        include:
+          - os: ubuntu
+            file: ubuntu/donjon-painter
+            args: --better
+            strip: true
+          - os: windows
+            file: windows/donjon-painter.exe
+            args: -9
+            strip: false
+          - os: macos
+            file: macos/donjon-painter
+            args: --better
+            strip: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -34,6 +46,14 @@ jobs:
           mkdir ${{ matrix.os }}
           cd donjon_painter
           python -O -m PyInstaller --onefile --name donjon-painter --distpath ../${{ matrix.os }} painter.py
+
+
+      - name: Compress Executable
+        uses: svenstaro/upx-action@v1-release
+        with:
+          file: ${{ matrix.file }}
+          args: ${{ matrix.args }}
+          strip: ${{ matrix.strip }}
 
       - name: Package Executable
         run: |
