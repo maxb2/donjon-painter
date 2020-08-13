@@ -1,8 +1,6 @@
 donjon-painter - Dungeon Map Maker
 ==================================
 
-This is a fork of the outdated `Blackflighter/donjon-painter`_.
-
 donjon-painter is a companion script to `donjon's Random Dungeon Generator`_.
 By selecting a TSV file along with a set of tile assets, you can easily create large, beautiful dungeon maps.
 Learn how to create new tilesets for donjon-painter `here`_.
